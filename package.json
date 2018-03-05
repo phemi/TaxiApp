@@ -14,6 +14,7 @@
     "react-native": "0.52.2",
     "react-native-maps": "^0.20.1",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-vector-icons": "^4.5.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
@@ -28,5 +29,6 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json"
 }

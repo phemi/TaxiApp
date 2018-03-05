@@ -1,25 +1,60 @@
  import update from 'react-addons-update';
+  import { Dimensions } from 'react-native';
  import constants from './actionConstants';
 
- const { SET_NAME } = constants;
 
- export function setName() {
-   return { type: SET_NAME, payload: 'Eman' };
- }
+//constants
+ const { GET_CURRENT_LOCATION } = constants;
+ const { width, height } = Dimensions.get('window');
 
+ const ASPECT_RATIO = width / height;
 
-function handleSetName(state, action) {
+ const LATITUDE_DELTA = 0.0922;
+ const LONGITUDE_DELTA = ASPECT_RATIO * LATITUDE_DELTA;
+
+//actions
+export function getCurrentLocation() {
+  return (dispatch) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position);
+        dispatch({
+          type: GET_CURRENT_LOCATION,
+          payload: position
+        })
+      },
+      (error) => console.log(error.message),
+      { enableHighAccuracy: true, timeout: 200000, maximumAge: 1000 }
+    );
+  };
+}
+
+//actions handlers
+function handleGetCurrentLocation(state, action) {
   return update(state, {
-    name: {
-      $set: action.payload
+    region: {
+      latitude: {
+        $set: action.payload.coords.latitude
+      },
+      longitude: {
+        $set: action.payload.coords.longitude
+      },
+      latitudeDelta: {
+        $set: LATITUDE_DELTA
+      },
+      longitudeDelta: {
+        $set: LONGITUDE_DELTA
+      }
     }
   });
 }
 
 const ACTION_HANDLERS = {
-  SET_NAME: handleSetName
+  GET_CURRENT_LOCATION: handleGetCurrentLocation
 };
- const initialState = {};
+ const initialState = {
+   region: {}
+ };
 
  export function HomeReducer(state = initialState, action) {
    const handler = ACTION_HANDLERS[action.type];
