@@ -4,7 +4,7 @@ const width = Dimensions.get('window').width;
 
 const styles = {
   searchBox: {
-    top: 60,
+    top: 40,
     position: 'absolute',
     width
   },
@@ -31,7 +31,7 @@ const styles = {
   },
   label: {
     fontSize: 10,
-    fontSTyle: 'italic',
+    fontStyle: 'italic',
     marginLeft: 10,
     marginTop: 10,
     marginBottom: 0

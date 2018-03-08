@@ -10,6 +10,7 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.props);
     /*const region = {
       latitude: 6.500501,
       longitude: 3.366604,
@@ -21,7 +22,14 @@ class Home extends Component {
     return (
       <Container>
         { this.props.region.latitude &&
-        <MapContainer region={this.props.region} />
+        <MapContainer
+        region={this.props.region}
+        getInputData={this.props.getInputData}
+        toggleSearchResultModal={this.props.toggleSearchResultModal}
+        getAddressPredictions={this.props.getAddressPredictions}
+        resultTypes={this.props.resultTypes}
+        predictions={this.props.predictions}
+        />
         }
       </Container>
   );
